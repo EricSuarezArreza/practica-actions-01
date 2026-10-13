@@ -8,11 +8,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  saludo:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar el código
         uses: actions/checkout@v4
 
-      - name: Saludar
-        run: echo "Hola desde GitHub Actions"
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar tests
+        run: npm test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Comprobar versión de Node
+        run: node --version
